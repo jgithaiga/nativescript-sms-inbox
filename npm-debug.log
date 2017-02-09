@@ -1,0 +1,116 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node', '/usr/local/bin/npm', 'publish' ]
+2 info using npm@3.10.8
+3 info using node@v6.9.1
+4 verbose publish [ '.' ]
+5 silly cache add args [ '.', null ]
+6 verbose cache add spec .
+7 silly cache add parsed spec Result {
+7 silly cache add   raw: '.',
+7 silly cache add   scope: null,
+7 silly cache add   escapedName: null,
+7 silly cache add   name: null,
+7 silly cache add   rawSpec: '.',
+7 silly cache add   spec: '/Users/julius/development/nativescript-sms-inbox',
+7 silly cache add   type: 'directory' }
+8 verbose addLocalDirectory /Users/julius/.npm/nativescript-sms-inbox/1.0.0/package.tgz not in flight; packing
+9 verbose correctMkdir /Users/julius/.npm correctMkdir not in flight; initializing
+10 info lifecycle nativescript-sms-inbox@1.0.0~prepublish: nativescript-sms-inbox@1.0.0
+11 silly lifecycle nativescript-sms-inbox@1.0.0~prepublish: no script for prepublish, continuing
+12 verbose tar pack [ '/Users/julius/.npm/nativescript-sms-inbox/1.0.0/package.tgz',
+12 verbose tar pack   '/Users/julius/development/nativescript-sms-inbox' ]
+13 verbose tarball /Users/julius/.npm/nativescript-sms-inbox/1.0.0/package.tgz
+14 verbose folder /Users/julius/development/nativescript-sms-inbox
+15 verbose addLocalTarball adding from inside cache /Users/julius/.npm/nativescript-sms-inbox/1.0.0/package.tgz
+16 verbose correctMkdir /Users/julius/.npm correctMkdir not in flight; initializing
+17 silly cache afterAdd nativescript-sms-inbox@1.0.0
+18 verbose afterAdd /Users/julius/.npm/nativescript-sms-inbox/1.0.0/package/package.json not in flight; writing
+19 verbose correctMkdir /Users/julius/.npm correctMkdir not in flight; initializing
+20 verbose afterAdd /Users/julius/.npm/nativescript-sms-inbox/1.0.0/package/package.json written
+21 silly publish { name: 'nativescript-sms-inbox',
+21 silly publish   version: '1.0.0',
+21 silly publish   description: 'Read text messages in the android phone inbox using undocumented android api.',
+21 silly publish   main: 'index.js',
+21 silly publish   nativescript: { platforms: { android: '1.4.0' } },
+21 silly publish   repository:
+21 silly publish    { type: 'git',
+21 silly publish      url: 'git+https://github.com/jgithaiga/nativescript-sms-inbox.git' },
+21 silly publish   keywords:
+21 silly publish    [ 'NativeScript',
+21 silly publish      'Messaging',
+21 silly publish      'JavaScript',
+21 silly publish      'Android',
+21 silly publish      'sms',
+21 silly publish      'inbox' ],
+21 silly publish   author: { name: 'Julius Githaiga', email: 'julius@example.com' },
+21 silly publish   bugs: { url: 'https://github.com/jgithaiga/nativescript-sms-inbox/issues' },
+21 silly publish   license:
+21 silly publish    { type: 'MIT',
+21 silly publish      url: 'https://github.com/jgithaiga/nativescript-sms-inbox/blob/master/LICENSE' },
+21 silly publish   homepage: 'https://github.com/jgithaiga/nativescript-sms-inbox',
+21 silly publish   readmeFilename: 'README.md',
+21 silly publish   readme: '[![npm](https://img.shields.io/npm/v/nativescript-phone.svg)](https://www.npmjs.com/package/nativescript-phone)\r\n[![npm](https://img.shields.io/npm/dt/nativescript-phone.svg?label=npm%20downloads)](https://www.npmjs.com/package/nativescript-phone)\r\n\r\n# NativeScript Sms Inbox\r\n\r\nA NativeScript plugin to read text messages on android phone inbox using undocumented android api.\r\n\r\n## Installation\r\n\r\nInstall the plugin using the NativeScript CLI tooling\r\n\r\n```\r\ntns plugin add nativescript-isms-inbox\r\n```\r\n\r\n### Android\r\n\r\nTo read sms inbox in the phone without user interaction on Android your app must request permission. The following must be in your app\'s AndroidManifest.xml. The plugin should add this for you if it does not exist already.\r\n\r\n```xml\r\n<uses-permission android:name="android.permission.READ_SMS" />\r\n```\r\n\r\n## Usage\r\n\r\nTo use the phone module you must first `require()` it from your project\'s `node_modules` directory:\r\n\r\n```js\r\nvar inbox = require( "nativescript-sms-inbox" );\r\n```\r\n\r\nAfter you have a reference to the module you can then call the available methods.\r\n\r\n### Methods\r\n#### getInboxes: fetch all text message in the inbox\r\n##### Parameters\r\n* options: A map of parameters e.g. max (for max results), etc..\r\n\r\nFor example, the code below gets the last 10 smses from the device inbox:\r\n\r\n```js\r\n// my-page.js\r\nvar inbox = require( "nativescript-sms-inbox" );\r\ninbox.getInboxes({ max: 10 }).then(function(res) {\r\n    console.log(JSON.stringify(res));\r\n}, function(err) {\r\n    console.log("Error: " + err);\r\n});\r\n```\r\n#### getInboxesFromNumber: Get all text messages in the sms inbox sent by provided fromNumber\r\n##### Parameters\r\n* fromNumber - The number on which to filter SMS inbox messages.\r\n* options - A map of parameters e.g. max (for max results), etc.\r\n\r\nFor example, the code below gets the last 10 smses from the device inbox sent by the provided fromNumber:\r\n\r\n```js\r\n// my-page.js\r\nvar inbox = require( "nativescript-sms-inbox" );\r\ninbox.getInboxesFromNumber("0712345678", { max: 10 }).then(function(res) {\r\n    console.log(JSON.stringify(res));\r\n}, function(err) {\r\n    console.log("Error: " + err);\r\n});\r\n```\r\n\r\n### TypeScript example\r\n\r\n```TypeScript\r\n\r\nimport * as TNSInbox from \'nativescript-sms-inbox\';\r\n\r\n// Get the last 10 inbox messages\r\npublic getInboxMessages() {    \r\n    TNSInbox.getInboxes({ max: 10 }).then((res) => {\r\n        console.log(JSON.stringify(res));\r\n    }, (err) => {\r\n        console.log(\'Error: \' + err);\r\n    });\r\n}\r\n\r\n// Get the last 10 inbox messages sent by the provided fromNumber\r\npublic getInboxMessagesFromNumber(fromNumber: string) { //fromNumber = "0712345678"\r\n    TNSInbox.getInboxesFromNumber(fromNumber, { max: 10 }).then((res) => {\r\n        console.log(JSON.stringify(res));\r\n    }, (err) => {\r\n        console.log(\'Error: \' + err);\r\n    });\r\n}\r\n\r\n```\r\n',
+21 silly publish   gitHead: '22b1da2735b0c3a353a9b842428b3aa9348f44b5',
+21 silly publish   _id: 'nativescript-sms-inbox@1.0.0',
+21 silly publish   scripts: {},
+21 silly publish   _shasum: 'f574b39fbefa9a8d694cf2632e8ba398203ab265',
+21 silly publish   _from: '.' }
+22 verbose getPublishConfig undefined
+23 silly mapToRegistry name nativescript-sms-inbox
+24 silly mapToRegistry using default registry
+25 silly mapToRegistry registry https://registry.npmjs.org/
+26 silly mapToRegistry data Result {
+26 silly mapToRegistry   raw: 'nativescript-sms-inbox',
+26 silly mapToRegistry   scope: null,
+26 silly mapToRegistry   escapedName: 'nativescript-sms-inbox',
+26 silly mapToRegistry   name: 'nativescript-sms-inbox',
+26 silly mapToRegistry   rawSpec: '',
+26 silly mapToRegistry   spec: 'latest',
+26 silly mapToRegistry   type: 'tag' }
+27 silly mapToRegistry uri https://registry.npmjs.org/nativescript-sms-inbox
+28 verbose publish registryBase https://registry.npmjs.org/
+29 silly publish uploading /Users/julius/.npm/nativescript-sms-inbox/1.0.0/package.tgz
+30 verbose request uri https://registry.npmjs.org/nativescript-sms-inbox
+31 verbose request sending authorization for write operation
+32 info attempt registry request try #1 at 6:01:07 PM
+33 verbose request using bearer token for auth
+34 verbose request id 297c1f6c32b308e1
+35 http request PUT https://registry.npmjs.org/nativescript-sms-inbox
+36 http 403 https://registry.npmjs.org/nativescript-sms-inbox
+37 verbose headers { 'content-type': 'application/json',
+37 verbose headers   'cache-control': 'max-age=300',
+37 verbose headers   'content-length': '95',
+37 verbose headers   'accept-ranges': 'bytes',
+37 verbose headers   date: 'Thu, 09 Feb 2017 15:01:09 GMT',
+37 verbose headers   via: '1.1 varnish',
+37 verbose headers   connection: 'keep-alive',
+37 verbose headers   'x-served-by': 'cache-lhr6344-LHR',
+37 verbose headers   'x-cache': 'MISS',
+37 verbose headers   'x-cache-hits': '0',
+37 verbose headers   'x-timer': 'S1486652468.440116,VS0,VE1119',
+37 verbose headers   vary: 'Accept-Encoding' }
+38 verbose request invalidating /Users/julius/.npm/registry.npmjs.org/nativescript-sms-inbox on PUT
+39 error publish Failed PUT 403
+40 verbose stack Error: "You cannot publish over the previously published version 1.0.0." : nativescript-sms-inbox
+40 verbose stack     at makeError (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:302:12)
+40 verbose stack     at CachingRegistryClient.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:290:14)
+40 verbose stack     at Request._callback (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:210:14)
+40 verbose stack     at Request.self.callback (/usr/local/lib/node_modules/npm/node_modules/request/request.js:187:22)
+40 verbose stack     at emitTwo (events.js:106:13)
+40 verbose stack     at Request.emit (events.js:191:7)
+40 verbose stack     at Request.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:1044:10)
+40 verbose stack     at emitOne (events.js:96:13)
+40 verbose stack     at Request.emit (events.js:188:7)
+40 verbose stack     at IncomingMessage.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:965:12)
+41 verbose statusCode 403
+42 verbose pkgid nativescript-sms-inbox
+43 verbose cwd /Users/julius/development/nativescript-sms-inbox
+44 error Darwin 16.4.0
+45 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "publish"
+46 error node v6.9.1
+47 error npm  v3.10.8
+48 error code E403
+49 error "You cannot publish over the previously published version 1.0.0." : nativescript-sms-inbox
+50 error If you need help, you may report this error at:
+50 error     <https://github.com/npm/npm/issues>
+51 verbose exit [ 1, true ]
