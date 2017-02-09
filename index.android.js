@@ -3,12 +3,16 @@ var Sms = require("./sms-model");
 
 const CONTENT_SMS_INBOX_URI = "content://sms/inbox";
 const READ_ALL_SMS = -1;
+const DEFAULT_SORT_PROP = "date";
+const DEFAULT_SORT_ORDER = "DESC";
 
 exports.getInboxes = function(options) {
-	var numberOfTexts = options.max || READ_ALL_SMS;
+	var max = options.max || READ_ALL_SMS,
+		sort = options.sort || DEFAULT_SORT_PROP,
+		order = options.order || DEFAULT_SORT_ORDER;
 	return new Promise(function (resolve, reject) {
 		var contentResolver = appModule.android.context.getContentResolver();
-		var sortOrder = "date DESC" + ((numberOfTexts == READ_ALL_SMS) ? "" : " limit " + numberOfTexts);
+		var sortOrder = sort + " " + order + "" + ((max == READ_ALL_SMS) ? "" : " limit " + max);
 		var cursor = contentResolver.query(android.net.Uri.parse(CONTENT_SMS_INBOX_URI), null, null, null, sortOrder);
 		var count = cursor.getCount();
 
@@ -30,10 +34,12 @@ exports.getInboxes = function(options) {
 };
 
 exports.getInboxesFromNumber = function(fromNumber, options) {
-	var numberOfTexts = options.max || READ_ALL_SMS;
+	var max = options.max || READ_ALL_SMS,
+		sort = options.sort || DEFAULT_SORT_PROP,
+		order = options.order || DEFAULT_SORT_ORDER;
 	return new Promise(function (resolve, reject) {
 		var contentResolver = appModule.android.context.getContentResolver();
-		var sortOrder = "date DESC" + ((numberOfTexts == READ_ALL_SMS) ? "" : " limit " + numberOfTexts);
+		var sortOrder = sort + " " + order + "" + ((max == READ_ALL_SMS) ? "" : " limit " + max);
 		var cursor = contentResolver.query(android.net.Uri.parse("content://sms/inbox"), null, "address=?", [fromNumber], sortOrder);
 		var count = cursor.getCount();
 
