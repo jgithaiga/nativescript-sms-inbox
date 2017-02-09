@@ -11,7 +11,7 @@ var SMS_TYPE_COLUMN = "type";
 var Sms = (function () {
 	function Sms() {
 		this.id = "";
-		this.phoneNumber = "";
+		this.fromNumber = "";
 		this.message = "";
 		this.sentDate = "";
 		this.type = "";
@@ -20,7 +20,7 @@ var Sms = (function () {
 	Sms.prototype.initializeFromNative = function(cursor) {
 		var jsonCursor = helper.convertNativeCursorToJson(cursor);
 		this.id = jsonCursor[SMS_ID_COLUMN];
-		this.phoneNumber = jsonCursor[SMS_ADDRESS_COLUMN];
+		this.fromNumber = jsonCursor[SMS_ADDRESS_COLUMN];
 		this.message = jsonCursor[SMS_BODY_COLUMN];
 		this.sentDate = jsonCursor[SMS_DATE_COLUMN];
 		this.type = jsonCursor[SMS_TYPE_COLUMN];
