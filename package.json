@@ -1,0 +1,36 @@
+{
+	"name": "nativescript-sms-inbox",
+	"version": "1.0.0",
+	"description": "Read text messages in the android phone inbox using undocumented android api.",
+	"main": "index.js",
+	"nativescript": {
+		"platforms": {
+			"android": "1.4.0"
+		}
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/jgithaiga/nativescript-sms-inbox.git"
+	},
+	"keywords": [
+		"NativeScript",
+		"Messaging",
+		"JavaScript",
+		"Android",
+		"sms",
+		"inbox"
+	],
+	"author": {
+		"name": "Julius Githaiga",
+		"email": "julius@example.com"
+	},
+	"bugs": {
+		"url": "https://github.com/jgithaiga/nativescript-sms-inbox/issues"
+	},
+	"license": {
+		"type": "MIT",
+		"url": "https://github.com/jgithaiga/nativescript-sms-inbox/blob/master/LICENSE"
+	},
+	"homepage": "https://github.com/jgithaiga/nativescript-sms-inbox",
+	"readmeFilename": "README.md"
+}
