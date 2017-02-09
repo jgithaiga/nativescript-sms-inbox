@@ -4,7 +4,7 @@ var Sms = require("./sms-model");
 const CONTENT_SMS_INBOX_URI = "content://sms/inbox";
 const READ_ALL_SMS = -1;
 
-exports.getAllSmses = function(options) {
+exports.getInboxes = function(options) {
 	var numberOfTexts = options.max || READ_ALL_SMS;
 	return new Promise(function (resolve, reject) {
 		var contentResolver = appModule.android.context.getContentResolver();
@@ -29,7 +29,7 @@ exports.getAllSmses = function(options) {
 	});
 };
 
-exports.getSmsesByAddress = function(fromNumber, options) {
+exports.getInboxesFromNumber = function(fromNumber, options) {
 	var numberOfTexts = options.max || READ_ALL_SMS;
 	return new Promise(function (resolve, reject) {
 		var contentResolver = appModule.android.context.getContentResolver();
