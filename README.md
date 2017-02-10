@@ -10,7 +10,7 @@ A NativeScript plugin to read text messages on android phone inbox using undocum
 Install the plugin using the NativeScript CLI tooling
 
 ```
-tns plugin add nativescript-isms-inbox
+tns plugin add nativescript-sms-inbox
 ```
 
 ### Android
