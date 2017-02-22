@@ -1,29 +1,25 @@
 var app = require("application");
-
-var helper = require("./sms-helper");
-
-var SMS_ID_COLUMN = "_id";
-var SMS_ADDRESS_COLUMN = "address";
-var SMS_BODY_COLUMN = "body";
-var SMS_DATE_COLUMN = "date";
-var SMS_TYPE_COLUMN = "type";
+const constants = require("./constants");
 
 var Sms = (function () {
 	function Sms() {
 		this.id = "";
+		this.threadId = "";
 		this.fromNumber = "";
 		this.message = "";
+		this.date = "";
 		this.sentDate = "";
 		this.type = "";
 	};
 
-	Sms.prototype.initializeFromNative = function(cursor) {
-		var jsonCursor = helper.convertNativeCursorToJson(cursor);
-		this.id = jsonCursor[SMS_ID_COLUMN];
-		this.fromNumber = jsonCursor[SMS_ADDRESS_COLUMN];
-		this.message = jsonCursor[SMS_BODY_COLUMN];
-		this.sentDate = jsonCursor[SMS_DATE_COLUMN];
-		this.type = jsonCursor[SMS_TYPE_COLUMN];
+	Sms.prototype.parseFromNative = function(cursor) {
+		this.id = cursor.getInt(cursor.getColumnIndex(constants.SMS_ID_COLUMN));
+		this.threadId = cursor.getInt(cursor.getColumnIndex(constants.SMS_THREAD_ID_COLUMN));
+		this.fromNumber = cursor.getString(cursor.getColumnIndex(constants.SMS_ADDRESS_COLUMN));
+		this.message = cursor.getString(cursor.getColumnIndex(constants.SMS_BODY_COLUMN));
+		this.date = cursor.getString(cursor.getColumnIndex(constants.SMS_DATE_COLUMN));
+		this.sentDate = cursor.getString(cursor.getColumnIndex(constants.SMS_DATE_SENT_COLUMN));
+		this.type = cursor.getInt(cursor.getColumnIndex(constants.SMS_TYPE_COLUMN));
     };
 
 	return Sms;
