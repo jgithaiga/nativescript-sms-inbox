@@ -8,7 +8,7 @@ exports.getInboxes = function(options) {
 		order = options.order || constants.DEFAULT_SORT_ORDER;
 	return new Promise(function (resolve, reject) {
 		var contentResolver = app.android.context.getContentResolver();
-		var sortOrder = sort + " " + order + "" + ((max == constants.READ_ALL_SMS) ? "" : " limit " + max);
+		var sortOrder = sort + " " + order + ((max == constants.READ_ALL_SMS) ? "" : " limit " + max);
 		var columns = [ "_id", "thread_id", "address", "date", "date_sent", "body", "type" ];
 		var cursor = contentResolver.query(android.net.Uri.parse(constants.CONTENT_SMS_INBOX_URI), 			
 			columns, null, null, sortOrder);  
@@ -37,16 +37,17 @@ exports.getInboxesFromNumber = function(fromNumber, options) {
 		order = options.order || constants.DEFAULT_SORT_ORDER;
 	return new Promise(function (resolve, reject) {
 		var contentResolver = app.android.context.getContentResolver();
-		var sortOrder = sort + " " + order + "" + ((max == constants.READ_ALL_SMS) ? "" : " limit " + max);
+		var sortOrder = sort + " " + order + ((max == constants.READ_ALL_SMS) ? "" : " limit " + max);
+		var columns = [ "_id", "thread_id", "address", "date", "date_sent", "body", "type" ];
 		var cursor = contentResolver.query(android.net.Uri.parse(constants.CONTENT_SMS_INBOX_URI), 
-			null, "address=?", [fromNumber], sortOrder);
+			columns, "address=?", [fromNumber], sortOrder);
 		var count = cursor.getCount();
 
 		if (count > 0) {
 			var smsList = [];
 			while (cursor.moveToNext()) {
                 var smsModel = new Sms();
-                smsModel.initializeFromNative(cursor);
+                smsModel.parseFromNative(cursor);
                 smsList.push(smsModel);
             }
             cursor.close();
@@ -62,7 +63,7 @@ exports.getInboxesFromNumber = function(fromNumber, options) {
 exports.deleteSms = function(smsId) {
 	return new Promise(function (resolve, reject) {
 		var contentResolver = app.android.context.getContentResolver();
-		resolve(contentResolver.delete(android.net.Uri.parse(constants.CONTENT_SMS_URI +"/"+ smsId), null, null));		
+		resolve(contentResolver.delete(android.net.Uri.parse(constants.CONTENT_SMS_URI + smsId), null, null));		
 	});
 }
 
