@@ -10,6 +10,8 @@ var Sms = (function () {
 		this.date = "";
 		this.sentDate = "";
 		this.type = "";
+
+		this.uuid = "";
 	};
 
 	Sms.prototype.parseFromNative = function(cursor) {
@@ -20,6 +22,8 @@ var Sms = (function () {
 		this.date = cursor.getString(cursor.getColumnIndex(constants.SMS_DATE_COLUMN));
 		this.sentDate = cursor.getString(cursor.getColumnIndex(constants.SMS_DATE_SENT_COLUMN));
 		this.type = cursor.getInt(cursor.getColumnIndex(constants.SMS_TYPE_COLUMN));
+
+		this.uuid = `SMS${this.id}-${this.date}-${this.fromNumber}`;
     };
 
 	return Sms;

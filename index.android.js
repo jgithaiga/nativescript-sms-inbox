@@ -14,8 +14,8 @@ exports.getInboxes = function(options) {
 			columns, null, null, sortOrder);  
 		var count = cursor.getCount();
 
-		if (count > 0) {
-			var smsList = [];
+		var smsList = [];
+		if (count > 0) {			
 			while (cursor.moveToNext()) {
                 var smsModel = new Sms();
                 smsModel.parseFromNative(cursor);
@@ -25,7 +25,7 @@ exports.getInboxes = function(options) {
             resolve({ data: smsList, total: count, status: "success" });
 		} else {
             cursor.close();
-            resolve({ data: null, total: count, status: "success" });
+            resolve({ data: smsList, total: count, status: "success" });
         }
 
 	});
@@ -43,8 +43,8 @@ exports.getInboxesFromNumber = function(fromNumber, options) {
 			columns, "address=?", [fromNumber], sortOrder);
 		var count = cursor.getCount();
 
-		if (count > 0) {
-			var smsList = [];
+		var smsList = [];
+		if (count > 0) {			
 			while (cursor.moveToNext()) {
                 var smsModel = new Sms();
                 smsModel.parseFromNative(cursor);
@@ -54,7 +54,7 @@ exports.getInboxesFromNumber = function(fromNumber, options) {
             resolve({ data: smsList, total: count, status: "success" });
 		} else {
             cursor.close();
-            resolve({ data: null, total: count, status: "success" });
+            resolve({ data: smsList, total: count, status: "success" });
         }
 
 	});
@@ -65,10 +65,6 @@ exports.deleteSms = function(smsId) {
 		var contentResolver = app.android.context.getContentResolver();
 		resolve(contentResolver.delete(android.net.Uri.parse(constants.CONTENT_SMS_URI + smsId), null, null));		
 	});
-}
-
-exports.getUuid = function() {
-	return java.util.UUID.randomUUID().toString();
 }
 
 exports.Sms = Sms;

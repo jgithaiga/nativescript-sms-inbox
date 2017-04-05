@@ -20,12 +20,6 @@ export function getInboxesFromNumber(fromNumber: string, options: Options): Prom
  */
 export function deleteSms(smsId: number): Promise<Response>;
 
-/**
- * Generate a random uuid via java util
- * @returns {string} uuid
- */
-export function getUuid(): string;
-
 interface Options {
 	max?: number; 
 	sort?: string; // Either 'date', 'address', 'type', '_id', 'body'
@@ -34,10 +28,11 @@ interface Options {
 
 interface Sms {	
 	id: number;
-	threadId: number;
+	uuid: string;
 	type: number;
 	date: number;
 	sentDate: number;
+	threadId: number;
 	fromNumber: string;
 	message: string;	
 }
