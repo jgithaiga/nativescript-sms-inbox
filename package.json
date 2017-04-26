@@ -1,6 +1,6 @@
 {
 	"name": "nativescript-sms-inbox",
-	"version": "1.0.5",
+	"version": "1.0.6",
 	"description": "Read text messages in the android phone inbox using undocumented android api.",
 	"main": "index.js",
 	"nativescript": {
