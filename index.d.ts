@@ -14,13 +14,30 @@ export function getInboxes(options: Options): Promise<Response>;
 export function getInboxesAfterDate(timestamp: number, options: Options): Promise<Response>;
 
 /**
- * Get all text messages in the sms inbox after a given date timestamp.
+ * Get all text messages in the sms inbox between the given date timestamps
  * @param {string} startTimestamp - The start date timestamp after which get SMS inbox messages.
  * @param {string} endTimestamp - The end date timestamp before which get SMS inbox messages.
  * @param {any} options - A map of parameters e.g. max (for max results), etc.
  * @returns {Promise} response
  */
 export function getInboxesBetweenDates(startTimestamp: number, endTimestamp: number, options: Options): Promise<Response>;
+
+/**
+ * Get all text messages in the sms inbox after a given sent date timestamp.
+ * @param {string} timestamp - The date timestamp after which get SMS inbox messages.
+ * @param {any} options - A map of parameters e.g. max (for max results), etc.
+ * @returns {Promise} response
+ */
+export function getInboxesAfterSentDate(timestamp: number, options: Options): Promise<Response>;
+
+/**
+ * Get all text messages in the sms inbox between the given sent date timestamps.
+ * @param {string} startTimestamp - The start date timestamp after which get SMS inbox messages.
+ * @param {string} endTimestamp - The end date timestamp before which get SMS inbox messages.
+ * @param {any} options - A map of parameters e.g. max (for max results), etc.
+ * @returns {Promise} response
+ */
+export function getInboxesBetweenSentDates(startTimestamp: number, endTimestamp: number, options: Options): Promise<Response>;
 
 /**
  * Get all text messages in the sms inbox sent by the provided fromNumber.

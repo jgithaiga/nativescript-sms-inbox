@@ -91,6 +91,66 @@ exports.getInboxesBetweenDates = function(startTimestamp, endTimestamp, options)
 	});
 };
 
+exports.getInboxesAfterSentDate = function(timestamp, options) {
+	var max = options.max || constants.READ_ALL_SMS,
+		sort = options.sort || constants.DEFAULT_SORT_PROP,
+		order = options.order || constants.DEFAULT_SORT_ORDER;
+	return new Promise(function (resolve, reject) {
+		var contentResolver = app.android.context.getContentResolver();
+		var filter = "date_sent>=" + timestamp;
+		var sortOrder = sort + " " + order + ((max == constants.READ_ALL_SMS) ? "" : " limit " + max);
+		var columns = [ "_id", "thread_id", "address", "date", "date_sent", "body", "type" ];
+		var cursor = contentResolver.query(android.net.Uri.parse(constants.CONTENT_SMS_INBOX_URI), 
+			columns, filter, null, sortOrder);
+		var count = cursor.getCount();
+
+		var smsList = [];
+		if (count > 0) {		
+			while (cursor.moveToNext()) {
+                var smsModel = new Sms();
+                smsModel.parseFromNative(cursor);
+                smsList.push(smsModel);
+            }
+            cursor.close();
+            resolve({ data: smsList, total: count, status: "success" });
+		} else {	
+            cursor.close();
+            resolve({ data: smsList, total: count, status: "success" });
+        }
+
+	});
+};
+
+exports.getInboxesBetweenSentDates = function(startTimestamp, endTimestamp, options) {
+	var max = options.max || constants.READ_ALL_SMS,
+		sort = options.sort || constants.DEFAULT_SORT_PROP,
+		order = options.order || constants.DEFAULT_SORT_ORDER;
+	return new Promise(function (resolve, reject) {
+		var contentResolver = app.android.context.getContentResolver();
+		var filter = "date_sent>=" + startTimestamp + " and date_sent<=" +endTimestamp;
+		var sortOrder = sort + " " + order + ((max == constants.READ_ALL_SMS) ? "" : " limit " + max);
+		var columns = [ "_id", "thread_id", "address", "date", "date_sent", "body", "type" ];
+		var cursor = contentResolver.query(android.net.Uri.parse(constants.CONTENT_SMS_INBOX_URI), 
+			columns, filter, null, sortOrder);
+		var count = cursor.getCount();
+
+		var smsList = [];
+		if (count > 0) {		
+			while (cursor.moveToNext()) {
+                var smsModel = new Sms();
+                smsModel.parseFromNative(cursor);
+                smsList.push(smsModel);
+            }
+            cursor.close();
+            resolve({ data: smsList, total: count, status: "success" });
+		} else {	
+            cursor.close();
+            resolve({ data: smsList, total: count, status: "success" });
+        }
+
+	});
+};
+
 exports.getInboxesFromNumber = function(fromNumber, options) {
 	var max = options.max || constants.READ_ALL_SMS,
 		sort = options.sort || constants.DEFAULT_SORT_PROP,
