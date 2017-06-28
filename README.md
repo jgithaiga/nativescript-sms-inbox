@@ -1,5 +1,5 @@
-[![npm](https://img.shields.io/npm/v/nativescript-phone.svg)](https://www.npmjs.com/package/nativescript-phone)
-[![npm](https://img.shields.io/npm/dt/nativescript-phone.svg?label=npm%20downloads)](https://www.npmjs.com/package/nativescript-phone)
+[![npm](https://img.shields.io/npm/v/nativescript-sms-inbox.svg)](https://www.npmjs.com/package/nativescript-sms-inbox)
+[![npm](https://img.shields.io/npm/dt/nativescript-sms-inbox.svg?label=npm%20downloads)](https://www.npmjs.com/package/nativescript-sms-inbox)
 
 # NativeScript Sms Inbox
 
