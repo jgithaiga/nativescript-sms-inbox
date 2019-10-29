@@ -15,7 +15,7 @@ tns plugin add nativescript-sms-inbox
 
 ### Android
 
-To read sms inbox in the phone without user interaction on Android your app must request permission. The following must be in your app's AndroidManifest.xml. The plugin should add this for you if it does not exist already.
+To read sms inbox in the phone without user interaction on Android your app must request permission. The following must be in your app's AndroidManifest.xml.
 
 ```xml
 <uses-permission android:name="android.permission.READ_SMS" />
